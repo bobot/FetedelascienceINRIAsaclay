@@ -1,0 +1,5 @@
+avance ();
+tourne (90);
+avance ();
+tourne (-90);
+repete (3, avance)

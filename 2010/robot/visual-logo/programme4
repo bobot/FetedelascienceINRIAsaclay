@@ -1,0 +1,5 @@
+tant que
+  non (couleur_est (blanc))
+faire
+   tourne (1)
+fin

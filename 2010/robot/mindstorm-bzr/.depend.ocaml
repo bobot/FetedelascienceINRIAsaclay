@@ -1,0 +1,7 @@
+make_os_type.cmo: 
+make_os_type.cmx: 
+mindstorm.cmo: mindstorm.cmi 
+mindstorm.cmx: mindstorm.cmi 
+test.cmo: 
+test.cmx: 
+mindstorm.cmi: 

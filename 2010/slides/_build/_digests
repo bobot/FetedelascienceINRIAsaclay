@@ -1,0 +1,4 @@
+"Rule: ocaml: cmo* -> byte (%=binaire )": "\150\003\222\128\201\255\015\189\171hP1\171\172,L"
+"Rule: ocaml dependencies ml (%=binaire )": "y\007\030\188\231\176\015\222kJ\002\156\0241.w"
+"Resource: /home/yann/enseignement/atelier-robot/slides/binaire.ml": "\204\154\030\232(tQ\252K\221\150\002\236\185\191\003"
+"Rule: ocaml: ml -> cmo & cmi (%=binaire )": "%2\147\182\r\019\030~\163C \185\235`\026\243"

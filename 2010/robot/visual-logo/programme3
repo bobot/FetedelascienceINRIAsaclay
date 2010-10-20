@@ -1,0 +1,6 @@
+si 
+  couleur_est (rouge)
+alors
+   tourne (90)
+sinon
+   tourne (-90)

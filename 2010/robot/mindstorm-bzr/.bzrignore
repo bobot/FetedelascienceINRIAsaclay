@@ -1,0 +1,14 @@
+# .bzrignore						-*-conf-unix-*-
+*.annot
+*.cmi
+*.cmo
+*.cma
+*.cmx
+*.cmxa
+*.exe
+*.com
+.depend.ocaml
+# Generated files
+.os_type
+META
+doc/*

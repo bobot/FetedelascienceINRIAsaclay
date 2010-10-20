@@ -1,0 +1,136 @@
+%\documentclass[handout,compress]{beamer}
+\documentclass[compress]{beamer}
+
+\usepackage[latin1]{inputenc}
+\usepackage[francais]{babel}
+\usepackage{times,mathptmx}
+\usepackage{graphicx,tikz}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\errorcontextlines=5
+
+%\setbeameroption{show notes on second screen}
+
+\setlength{\overfullrule}{10pt}
+
+\definecolor{mygreen}{RGB}{23, 120, 49}
+\definecolor{lightgreen}{RGB}{238, 255, 151}
+%\definecolor{umhblue}{RGB}{1, 56, 147}
+\definecolor{umhblue}{RGB}{51, 106, 207}
+%\definecolor{thm title}{RGB}{172, 10, 45}
+\definecolor{thm title}{RGB}{124, 4, 30}
+\definecolor{orangered}{RGB}{245, 94, 39}
+\definecolor{water}{RGB}{200,193,251}
+
+\definecolor{darkgreen}{RGB}{0, 136, 7}
+\definecolor{em}{RGB}{245, 94, 39}
+\definecolor{level}{RGB}{204,255,224}
+\definecolor{problem}{rgb}{0.84,0.5,0}
+
+\mode<presentation|handout>{%
+  \usetheme{Boadilla}
+%  \useoutertheme[subsection=false]{miniframes}
+  \useinnertheme[shadow]{rounded}
+  \setbeamercovered{transparent=5}
+  \usecolortheme[named=umhblue]{structure}
+  \setbeamercolor{block title}{bg=thm title,fg=yellow!15}
+  \setbeamercolor{block body}{bg=yellow!15}
+  \setbeamercolor{block title example}{bg=umhblue}
+  \setbeamercolor{block body example}{bg=yellow!15}
+  \setbeamercolor{alerted text}{fg=orangered}
+}
+
+\mode<presentation|handout:0> {%
+  \AtBeginDocument{%
+    \pgfdeclareverticalshading{beamer@headfade}{\paperwidth}
+    {%
+      color(0cm)=(bg);
+      color(1cm)=(umhblue!20)%
+     }
+  }
+  \addtoheadtemplate{\pgfuseshading{beamer@headfade}\vskip-1cm}{}
+}
+
+\mode<handout>
+{
+  \pgfpagesuselayout{4 on 1}[a4paper, border shrink=5mm,landscape]
+}
+
+
+%% Math
+
+\@ifundefined{leqslant}{}{\let\le=\leqslant}
+\@ifundefined{geqslant}{}{\let\ge=\geqslant}
+\@ifundefined{subseteq}{}{\let\subset=\subseteq}
+
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pgfdeclareimage[width=8mm]{UMH-logo}{Acad-logoumh}
+\pgfdeclareimage[width=8mm]{Acad-logo}{Acad-logo+txt}
+
+\title{Atelier de robotique}
+\subtitle{Comment sortir d'un labyrinthe ?}
+\author[Institut de Mathématique]{%
+  Marc \textsc{Ducobu}
+  \and Dany \textsc{Maslowski}
+  \and Julie \textsc{de Pril}
+  \and Christophe~\textsc{Troestler}}
+\date{PDS, mars 2008}
+\institute[UMH]{Université de Mons-Hainaut\\[3pt]
+  \pgfuseimage{UMH-logo}\qquad\pgfuseimage{Acad-logo}%
+}
+\logo{\pgfuseimage{UMH-logo}}
+
+
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\begin{frame} \frametitle{Informations sur le robot}
+  
+\end{frame}
+
+\section*{Plan}
+\begin{frame} \frametitle{Plan}
+  \tableofcontents[subsectionstyle=hide]
+\end{frame}
+
+\section{Quelques questions}
+\begin{frame} \frametitle{Quelques questions}
+  
+\end{frame}
+
+\section{Point 1 (à modifier)}
+\begin{frame} \frametitle{Point 1 (à modifier)}
+  
+\end{frame}
+
+\begin{frame} \frametitle{Titre}
+  
+\end{frame}
+
+\section{Point 2 (à modifier)}
+\begin{frame} \frametitle{Point 2 (à modifier)}
+  
+\end{frame}
+
+\begin{frame} \frametitle{Bibliographie}
+  \begin{thebibliography}{}
+
+  \bibitem{} The Perplexing Life of Erno Rubik, Discover magazine,
+    mars~1986.
+    \url{http://www.puzzlesolver.com/puzzle.php?id=29&page=15}
+
+  \end{thebibliography}
+\end{frame}
+
+\end{document}
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

@@ -1,0 +1,8 @@
+### Starting build.
+# Target: binaire.ml.depends, tags: { extension:ml, file:binaire.ml, ocaml, ocamldep, quiet }
+/usr/bin/ocamldep.opt -modules binaire.ml > binaire.ml.depends
+# Target: binaire.cmo, tags: { byte, compile, extension:ml, file:binaire.ml, implem, ocaml, quiet }
+/usr/bin/ocamlc.opt -c -o binaire.cmo binaire.ml
+# Target: binaire.byte, tags: { byte, dont_link_with, extension:byte, file:binaire.byte, link, ocaml, program, quiet }
+/usr/bin/ocamlc.opt binaire.cmo -o binaire.byte
+# Compilation successful.

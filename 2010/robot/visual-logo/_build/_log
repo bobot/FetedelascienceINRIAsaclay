@@ -1,0 +1,12 @@
+### Starting build.
+# Target: out.ml.depends, tags: { extension:ml, file:out.ml, ocaml, ocamldep, pkg_mindstorm, pkg_sdl, quiet, traverse, use_threads, use_unix }
+ocamlfind ocamldep -package mindstorm -package sdl -modules out.ml > out.ml.depends
+# Target: robot.ml.depends, tags: { extension:ml, file:robot.ml, ocaml, ocamldep, pkg_mindstorm, pkg_sdl, quiet, traverse, use_threads, use_unix }
+ocamlfind ocamldep -package mindstorm -package sdl -modules robot.ml > robot.ml.depends # cached
+# Target: robot.cmo, tags: { byte, compile, extension:ml, file:robot.ml, implem, ocaml, pkg_mindstorm, pkg_sdl, quiet, traverse, use_threads, use_unix }
+ocamlfind ocamlc -c -package mindstorm -package sdl -o robot.cmo robot.ml # cached
+# Target: out.cmo, tags: { byte, compile, extension:ml, file:out.ml, implem, ocaml, pkg_mindstorm, pkg_sdl, quiet, traverse, use_threads, use_unix }
+ocamlfind ocamlc -c -package mindstorm -package sdl -o out.cmo out.ml
+# Target: out.byte, tags: { byte, dont_link_with, extension:byte, file:out.byte, link, ocaml, pkg_mindstorm, pkg_sdl, program, quiet, traverse, use_threads, use_unix }
+ocamlfind ocamlc unix.cma -linkpkg -package mindstorm -package sdl robot.cmo out.cmo -o out.byte
+# Compilation successful.

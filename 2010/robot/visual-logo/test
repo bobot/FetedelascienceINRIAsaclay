@@ -1,0 +1,8 @@
+tant que
+  couleur_est(blanc)
+faire
+  avance ();
+tant que
+  couleur_est(noir)
+faire
+  tourne (

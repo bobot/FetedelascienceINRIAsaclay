@@ -1,0 +1,5 @@
+#!/bin/sh
+
+SVN=https://chris_77@ocaml-mindstorm.svn.sourceforge.net/svnroot/ocaml-mindstorm/trunk/robot07
+
+bzr push $SVN

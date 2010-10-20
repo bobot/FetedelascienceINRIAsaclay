@@ -1,0 +1,329 @@
+\documentclass[professionalfonts,10pt,francais]{beamer}
+\usepackage{packages}
+\usepackage{macros}
+\usepackage{options}
+
+\title{\textsc{Apprendre à programmer avec un robot}}
+\author{Yann Régis-Gianas
+\\
+\texttt{yann.regis-gianas@inria.fr}}
+\institute{
+INRIA - Équipe ${\pi}r²$ \\
+PPS - Université Denis Diderot -- Paris 7
+}
+\date{}
+
+%% \usefoottemplate{\vbox{%
+%% \tinycolouredline{structure!25}%
+%%   {\color{white}\textbf{\insertshortauthor\hfill%
+%%    \insertshortinstitute}}%
+%% \tinycolouredline{structure}%
+%%   {\color{white}\textbf{\insertshorttitle}\hfill}%
+%% }}
+
+\usefoottemplate{
+\includegraphics[height=0.7cm,width=12.5cm]{images/inria-footer}
+}
+
+\useheadtemplate{
+\includegraphics[height=1cm,width=12.5cm]{images/inria-header}
+}
+
+\begin{document}
+\maketitle
+
+\begin{frame}
+\begin{center}
+\large Qu'est-ce qu'un programme?
+\hrule
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Comment fonctionne un ordinateur?}
+
+\begin{center}
+\includegraphics[width=8cm]{images/processeur}
+\end{center}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Comment fonctionne un ordinateur?}
+
+\begin{center}
+\includegraphics[width=8cm]{images/processeur-1}
+\end{center}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Comment fonctionne un ordinateur?}
+
+\begin{center}
+\includegraphics[width=8cm]{images/processeur-2}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Qu'est-ce que la programmation?}
+
+\begin{center}
+\includegraphics[width=10cm]{images/poster1-1}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+\begin{center}
+\Large Essayons d'écrire un premier programme!
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Que se passe-t-il pendant l'exécution d'un programme?}
+
+\begin{center}
+\includegraphics[width=12cm]{images/poster1-2}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\large Comment écrire des programmes plus évolués?
+\hrule
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Qu'est-ce qu'un langage de programmation?}
+
+\begin{center}
+\includegraphics[width=12cm]{images/poster2-1}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+\begin{center}
+\includegraphics[width=12cm]{images/poster2-3}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+\begin{center}
+\includegraphics[width=12cm]{images/poster2-4}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+\begin{center}
+\includegraphics[width=12cm]{images/poster2-5}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\begin{center}
+\large Programmer un système de navigation
+\hrule
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Les ordinateurs servent à résoudre des problèmes complexes}
+
+\begin{columns}
+\begin{column}{6cm}
+\begin{itemize}
+\item Aller sur la Lune.
+\item Faire fonctionner Internet.
+\item Calculer des images de synthèse.
+\item \ldots
+\end{itemize}
+\end{column}
+\begin{column}{6cm}
+\begin{center}
+\includegraphics[width=3cm]{images/problem}
+\end{center}
+\end{column}
+\end{columns}
+
+\-
+
+\begin{center}
+Pour résoudre ces problèmes, on les \textbf{décompose} en problèmes un peu moins 
+complexes, que l'on décompose en problèmes encore un peu moins complexes,
+et ensuite de suite, jusqu'à obtenir des problèmes très simples. 
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Comme avec les LEGOs,\\ on construit des briques et les réutilise!}
+
+\begin{center}
+\includegraphics[width=4cm]{images/lego} \\
+
+\vspace{0.5cm}
+
+En programmation, ces briques sont appelées des {\large fonctions}.
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Un problème : un système de navigation}
+
+\begin{columns}
+\begin{column}{6cm}
+\begin{itemize}
+\item Le bus doit aller chercher les enfants à leur arrêt. 
+
+\item Il doit respecter le code de la route.
+
+\item En {\textcolor{blue}{bleu}} est indiqué le temps nécessaire pour se rendre d'une
+  intersection à une autre.
+
+\item[$\Rightarrow$] Comment mettre le moins de temps possible pour se faire? 
+\end{itemize}
+\end{column}
+\begin{column}{6cm}
+\begin{center}
+\includegraphics[width=5cm]{images/navigation}
+\end{center}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+\begin{center}
+\includegraphics[width=12cm]{images/poster3-1}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Premier problème : \\
+Comment suivre un itinéraire?}
+
+\begin{itemize}
+\item Notre robot sait aller à gauche, à droite ou tout droit.
+\item Comment suivre un itinéraire qui est une liste de numéros d'intersection? 
+\end{itemize}
+
+\begin{center}
+\Huge Une idée?
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Deux sous-problèmes}
+
+\begin{enumerate}
+\item Aller d'un point d'intersection à un autre en suivant une direction donnée.
+\item Choisir la bonne direction pour aller d'un point A à un point (voisin)~B. 
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Aller d'un point à un autre suivant une direction donnée}
+
+\begin{center}
+\includegraphics[width=6cm]{images/problem1}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Choisir la bonne direction}
+\begin{center}
+\includegraphics[width=9cm]{images/poster3-2}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Trouver l'itinéraire le plus rapide}
+
+\begin{center}
+\includegraphics[width=5cm]{images/carte}
+
+\-
+
+Comment trouver le chemin le plus rapide du point 1 au point 7? 
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+\begin{center}
+\includegraphics[width=11.5cm]{images/poster3-3}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Aïe!}
+
+\begin{center}
+{\Large J'ai fait quelques calculs \ldots}
+\end{center}
+
+\-
+
+\begin{center}
+\begin{tabular}{cc}
+Nombre $N$ d'emplacements & Nombre de chemin de la position $1$ à $N$ \\
+\hline
+\only<1->{15 & $\sim$ 26 } \\
+\only<2->{25 & $\sim$ 5000 } \\
+\only<3->{36 & $\sim$ 1000000} \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{itemize}
+\item<4-> Pour la carte de Paris, il y a plus de chemins que d'atomes dans l'Univers!
+\item<5->[$\Rightarrow$] Peut-être qu'il existe une meilleure façon de résoudre ce problème? 
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+\begin{center}
+\includegraphics[width=11.5cm]{images/poster3-4}
+
+\-
+
+{\Large L'\textbf{algorithme} de Dijkstra}
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{}
+
+\begin{center}
+{\Large C'est le travail des \textbf{chercheurs en informatique} que d'inventer de nouveaux algorithmes.} \\
+\vspace{1cm}
+{\Large Merci pour votre attention et à bientôt peut-être!} 
+\end{center}
+
+\end{frame}
+
+
+\end{document}

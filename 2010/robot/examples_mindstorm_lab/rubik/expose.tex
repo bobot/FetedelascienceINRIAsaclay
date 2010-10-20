@@ -1,0 +1,649 @@
+%\documentclass[handout,compress]{beamer}
+\documentclass[compress]{beamer}
+
+\usepackage[latin1]{inputenc}
+\usepackage[francais]{babel}
+\usepackage{textcomp}
+\usepackage{times,mathptmx,bbm}
+\usepackage{graphicx,tikz}
+\usepackage{array}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\errorcontextlines=5
+
+%\setbeameroption{show notes on second screen}
+
+\setlength{\overfullrule}{10pt}
+
+\AtBeginDocument{
+  \setlength{\abovedisplayskip}{3pt plus 1pt}
+  \setlength{\belowdisplayskip}{\abovedisplayskip}
+}
+
+\definecolor{mygreen}{RGB}{23, 120, 49}
+\definecolor{lightgreen}{RGB}{238, 255, 151}
+%\definecolor{umhblue}{RGB}{1, 56, 147}
+\definecolor{umhblue}{RGB}{51, 106, 207}
+%\definecolor{thm title}{RGB}{172, 10, 45}
+\definecolor{thm title}{RGB}{124, 4, 30}
+\definecolor{orangered}{RGB}{245, 94, 39}
+\definecolor{water}{RGB}{200,193,251}
+
+\definecolor{darkgreen}{RGB}{0, 136, 7}
+\definecolor{em}{RGB}{245, 94, 39}
+\definecolor{level}{RGB}{204,255,224}
+\definecolor{problem}{rgb}{0.84,0.5,0}
+
+\mode<presentation|handout>{%
+  \usetheme{Boadilla}
+%  \useoutertheme[subsection=false]{miniframes}
+  \useinnertheme[shadow]{rounded}
+  \setbeamercovered{transparent=1}
+  \usecolortheme[named=umhblue]{structure}
+  \setbeamercolor{block title}{bg=thm title,fg=yellow!15}
+  \setbeamercolor{block body}{bg=yellow!15}
+  \setbeamercolor{block title example}{bg=umhblue}
+  \setbeamercolor{block body example}{bg=yellow!15}
+  \setbeamercolor{alerted text}{fg=orangered}
+}
+
+\mode<presentation|handout:0> {%
+  \AtBeginDocument{%
+    \pgfdeclareverticalshading{beamer@headfade}{\paperwidth}
+    {%
+      color(0cm)=(bg);
+      color(1cm)=(umhblue!20)%
+     }
+  }
+  \addtoheadtemplate{\pgfuseshading{beamer@headfade}\vskip-1cm}{}
+}
+
+\mode<handout>
+{
+  \pgfpagesuselayout{4 on 1}[a4paper, border shrink=5mm,landscape]
+}
+
+
+%% Math
+
+\@ifundefined{leqslant}{}{\let\le=\leqslant}
+\@ifundefined{geqslant}{}{\let\ge=\geqslant}
+\@ifundefined{subseteq}{}{\let\subset=\subseteq}
+
+\newcommand{\IR}{{\mathbb R}}
+%\newcommand{\id}{{\mathbbm 1}}
+\newcommand{\id}{{\mathbf 1}}
+\newcommand{\G}{{\mathcal G}}
+
+\newcommand{\cube}[1]{%
+  \begin{tikzpicture}[x=0.7ex,y=0.7ex, baseline=2ex]
+    \input{#1}
+  \end{tikzpicture}
+}
+
+
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pgfdeclareimage[width=6mm]{UMH-logo}{Acad-logoumh}
+\pgfdeclareimage[width=6mm]{Acad-logo}{Acad-logo+txt}
+
+\title{Atelier de robotique}
+\subtitle{%Comment sortir d'un labyrinthe ?\\
+  Comment résoudre le Rubik's cube ?}
+\author[Institut de Mathématique]{%
+  Marc \textsc{Ducobu}
+  \and Dany \textsc{Maslowski}
+  \and Julie \textsc{De Pril}
+  \and Christophe~\textsc{Troestler}}
+\date{PDS, mars 2008}
+\institute[UMH]{Université de Mons-Hainaut\\[3pt]
+  %\pgfuseimage{UMH-logo}\qquad\pgfuseimage{Acad-logo}%
+  \includegraphics[width=10mm]{Acad-logoumh}\qquad
+  \includegraphics[width=10mm]{Acad-logo+txt}
+}
+\logo{\pgfuseimage{UMH-logo}}
+
+
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\section*{Plan}
+\begin{frame} \frametitle{Plan}
+  \tableofcontents[subsectionstyle=hide]
+\end{frame}
+
+% Besoin d'un slide préliminaire pour expliquer ce qu'est un Rubik's
+% cube et comment ça marche?
+
+
+\section{Préliminaires}
+\begin{frame} \frametitle{Appellation des faces du Rubik's cube}
+  % dessin d'un Rubik's cube avec le nom des faces (F,B,U,D,L,R)
+  \begin{tikzpicture}[x=3ex,y=3ex]
+    \input{expose-id.tex}
+    \only<2->{%
+      % Cover with a transparent white to have smooter colors
+      \fill[semitransparent,white] (0,0) rectangle (11.14,8.14);
+      % Label faces
+      \node at (4.5,4.5) {$F$};
+      \node at (9.62, 6.62) {$B$};
+      \node at (4.5, 1.5) {$D$};
+      \node at (1.5, 4.5) {$L$};
+      \node[rotate=-13] at (5.5, 7.02) {$U$};
+      \node[rotate=10] at (7, 5.5) {$R$};
+    }
+  \end{tikzpicture}
+  \hfil
+  \begin{minipage}[b]{0.4\linewidth}
+    Rubik's cube en «~position de base~», appelé le Rubik's cube
+    \textit{identité}, noté $\id$.
+
+    \onslide<2->{%
+    \begin{align*}
+      F &= \text{Front}\\
+      B &= \text{Back}\\
+      L &= \text{Left}\\
+      R &= \text{Right}\\
+      U &= \text{Up}\\
+      D &= \text{Down}
+    \end{align*}
+  }
+  \end{minipage}
+\end{frame}
+
+\section{Mouvements}
+\begin{frame} \frametitle{Mouvements}
+
+  \noindent
+  \begin{minipage}[b]{0.56\linewidth}
+    \begin{tikzpicture}[x=3ex,y=3ex]
+      \only<1>{%
+        \input{expose-id.tex}
+        \node at (4.5,4.5) {$F$};
+        \draw[dashed] (3,6) -- (4.5,4.5) -- (6,6);
+        \draw[->,thick] (3.8, 5.2) arc(135:45: 1);
+      }
+      \only<2>{
+        \input{expose-F1.tex}
+        \node[rotate=-90] at (4.5,4.5) {$F$};}
+      \only<3>{
+        \input{expose-F2.tex}
+        \node[rotate=-180] at (4.5,4.5) {$F$};}
+      \only<4>{
+        \input{expose-F3.tex}
+        \node[rotate=90] at (4.5,4.5) {$F$};}
+      \only<5>{
+        \input{expose-id.tex}
+        \node at (4.5,4.5) {$F$};}
+    \end{tikzpicture}
+    \par\vspace{1ex}
+
+    $F ={}$faire tourner la face $F$ de 90°.
+
+    \begin{block}{}
+      Tourner une face d'un multiple de 90° degrés est appelé un
+      \textit{mouvement}.
+    \end{block}
+  \end{minipage}
+  \hspace*{5ex}%
+  \begin{minipage}[b]{0.3\linewidth}
+
+    \begin{tikzpicture}[x=0.8ex,y=0.8ex]
+      \input{expose-id.tex}
+      \node[right] at (13, 4.5) {$\id$};
+      \onslide<2->%
+      \begin{scope}[yshift=-8ex]
+        \input{expose-F1.tex}
+        \node[right] at (13, 4.5) {$F$};
+      \end{scope}
+      \onslide<3->%
+      \begin{scope}[yshift=-16ex]
+        \input{expose-F2.tex}
+        \node[right] at (13, 4.5) {$F^2$};
+      \end{scope}
+      \onslide<4->%
+      \begin{scope}[yshift=-24ex]
+        \input{expose-F3.tex}
+        \node[right] at (13, 4.5) {$F^3$};
+      \end{scope}
+      \onslide<5->%
+      \begin{scope}[yshift=-32ex]
+        \input{expose-id.tex}
+        \node[right] at (13, 4.5) {$F^4 = \id$};
+      \end{scope}
+    \end{tikzpicture}
+
+  \end{minipage}
+  \note{ Quand on tourne une face de 360°, c'est comme si l'on avait
+    rien fait. En effet, nous retrouvons le Rubik's cube de départ.  }
+\end{frame}
+
+\begin{frame} \frametitle{Mouvements de base}
+
+  \begin{block}{18 mouvements de base}
+    $F, F^2, F^3, B, B^2, B^3, L, L^2, L^3, R, R^2, R^3, U, U^2, U^3,
+    D, D^2, D^3$
+  \end{block}
+  où $X^i$ signifie \og tourner la face $X$ de $i$ fois 90°
+  dans le sens horloger\fg.
+
+  \begin{center}
+    % Same figure of slide 1
+    \begin{tikzpicture}[x=3ex,y=3ex]
+      \input{expose-id.tex}
+      \fill[semitransparent,white] (0,0) rectangle (11.14,8.14);
+      % Label faces
+      \node at (4.5,4.5) {$F$};
+      \node at (9.62, 6.62) {$B$};
+      \node at (4.5, 1.5) {$D$};
+      \node at (1.5, 4.5) {$L$};
+      \node[rotate=-13] at (5.5, 7.02) {$U$};
+      \node[rotate=10] at (7, 5.5) {$R$};
+  \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame} \frametitle{\og Multiplication\fg{} de mouvements}
+  \begin{tikzpicture}[x=2.6ex,y=2.6ex]
+    \only<1>{\input{expose-id.tex}}
+    \only<2>{\input{expose-F1.tex}}
+    \only<3->{\input{expose-F1R2.tex}}
+    \node[right] at (7, 2.5) {\large $\id
+      \onslide<2->{* F}
+      \onslide<3->{* R^2}$};
+  \end{tikzpicture}
+  \hfil
+  \begin{minipage}[b]{0.48\linewidth}
+    cube${}\leftrightarrow{}$séquence mouvements
+    \par\vspace*{2ex}
+
+    \noindent\hspace*{4em}
+    \begin{tikzpicture}[x=0.8ex,y=0.8ex]
+      \input{expose-id.tex}
+      \node[right] at (13, 4.5) {$\id$};
+    \onslide<2->{%
+      \begin{scope}[yshift=-8ex]
+        \input{expose-F1.tex}
+        \node[right] at (13, 4.5) {$\id * F$};
+      \end{scope}
+    }
+    \onslide<3->{%
+      \begin{scope}[yshift=-16ex]
+        \input{expose-F1R2.tex}
+        \node[right] at (13, 4.5) {$\id * F * R²$};
+      \end{scope}
+    }
+    \end{tikzpicture}
+  \end{minipage}
+
+  \vspace*{2ex}
+  \onslide<4->%
+  \begin{minipage}{0.9\linewidth}% do not hide the UMH logo
+    \begin{block}{Notation}
+      $g * X$ est le cube résultant du cube $g$ auquel on a appliqué le
+      mouvement $X$.
+    \end{block}
+  \end{minipage}
+\end{frame}
+
+
+\section{L'ensemble des Rubik's cubes}
+\begin{frame} \frametitle{L'ensemble de tous les Rubik's cubes}
+ 
+  \begin{definition}
+    $\G ={}$l'ensemble de toutes les configurations possibles du
+    Rubik's cube i.e.\ toutes les configurations obtenues en
+    appliquant une séquence quelconque de mouvements à $\id$.
+  \end{definition}
+ 
+  \begin{align*}
+    \G = \Biggl\{
+    &\cube{expose-id.tex} = \id, \quad
+    \cube{expose-F1.tex} = \id * F, \quad
+    \cube{expose-F1R2.tex} = \id * F * R^2, \\
+    &\cube{expose-F1B2.tex} = \id * F * B^2 = \id * B^2 * F, \quad
+    \dotsc\Biggr\}
+  \end{align*}
+ 
+  \onslide<2->%
+  \vspace*{3ex}%
+  Nombre d'éléments de $\G = 43.252.003.274.489.856.000
+  \approx 43 \cdot 10^{18}$
+\end{frame}
+
+\begin{frame} \frametitle{Notion de mouvement inverse}
+  \begin{tikzpicture}[x=2.6ex,y=2.6ex]
+    \only<1>{\input{expose-id.tex}}
+    \only<2>{\input{expose-R1.tex}}
+    \only<3->{\input{expose-R1R3.tex}}
+    \node[right] at (7, 2.5) {\large $\id
+      \onslide<2->{* R}
+      \onslide<3->{* R^3}$};
+  \end{tikzpicture} 
+  \hfil
+  \begin{minipage}[b]{0.48\linewidth}
+    \par\vspace*{2ex}  
+    \noindent\hspace*{4em}
+    \begin{tikzpicture}[x=0.8ex,y=0.8ex]
+      \input{expose-id.tex}
+      \node[right] at (13, 4.5) {$\id$};
+      \onslide<2->{%
+        \begin{scope}[yshift=-8ex]
+          \input{expose-R1.tex}
+          \node[right] at (13, 4.5) {$\id * R$};
+        \end{scope}
+      }
+      \onslide<3->{%
+        \begin{scope}[yshift=-16ex]
+          \input{expose-R1R3.tex}
+          \node[right] at (13, 4.5) {$\id * R * R^3$};
+        \end{scope}
+      }
+    
+    \end{tikzpicture}
+  \end{minipage}
+
+  \begin{minipage}{0.48\linewidth}
+    \onslide<4->{%
+      \par\vspace*{4ex} 
+      \hspace*{3em} 
+      On retrouve $\id$!
+    }
+  \end{minipage}
+  \hfill
+  \onslide<5->{%
+  \begin{minipage}{0.48\linewidth}
+    \begin{block}{Conclusion}
+      $\id * R * R^3 = \id * R^4  = \id$ \\
+      ou $R * R^3 = R^4 = \id$
+    \end{block}
+  \end{minipage}
+}
+\end{frame}
+
+\begin{frame} \frametitle{Notion de mouvement inverse (suite)}
+  \begin{tikzpicture}[x=2.6ex,y=2.6ex]
+    \only<1>{\input{expose-scrambled.tex}}
+    \only<2>{\input{expose-scrambledR1.tex}}
+    \only<3->{\input{expose-scrambledR3.tex}}
+    \node[right] at (7, 2.5) {\large $g
+      \onslide<2->{* R}
+      \onslide<3->{* R^3}$};
+  \end{tikzpicture} 
+  \hfil
+  \begin{minipage}[b]{0.48\linewidth}
+    \par\vspace*{2ex}  
+    \noindent\hspace*{4em}
+    \begin{tikzpicture}[x=0.8ex,y=0.8ex]
+      \input{expose-scrambled.tex}
+      \node[right] at (13, 4.5) {$g$};
+      \onslide<2->{%
+        \begin{scope}[yshift=-8ex]
+          \input{expose-scrambledR1.tex}
+          \node[right] at (13, 4.5) {$g * R$};
+        \end{scope}
+      }
+      \onslide<3->{%
+        \begin{scope}[yshift=-16ex]
+          \input{expose-scrambledR3.tex}
+          \node[right] at (13, 4.5) {$g * R * R^3$};
+        \end{scope}
+      }
+    
+    \end{tikzpicture}
+  \end{minipage}
+
+  \begin{minipage}{0.48\linewidth}
+    \onslide<4->{%
+      \par\vspace*{4ex} 
+      \hspace*{3em} 
+      On retrouve $g$!
+    }
+  \end{minipage}
+  \hfill
+  \onslide<5->{%
+  \begin{minipage}{0.48\linewidth}
+    \begin{block}{Conclusion}
+      $g * R * R^3 = g * R^4  = g$ \\
+      car $R * R^3 = R^4 = \id$
+    \end{block}
+  \end{minipage}
+}
+\end{frame}
+
+
+\begin{frame} \frametitle{Notion de mouvement inverse (suite)}
+\onslide<1->{%
+  Qu'est-ce que l'inverse de $x \in \IR$?
+ }
+\onslide<2->{%
+ \begin{block}{Définition}
+   Soit $x \in \IR$.
+   On dit que $y$ est l'\textit{inverse} de $x$ si $x \cdot y = 1$.
+ \end{block}
+}
+\par\vspace*{2ex}
+\onslide<3->{Analogie avec les mouvements:}
+\onslide<4->{%
+  \begin{block}{Définition}
+    Soit $X$ un mouvement de base.
+    Nous dirons que $Y$ est le mouvement \textit{inverse} de $X$
+    si $X * Y = \id$.
+  \end{block}
+ }
+\par\vspace*{2ex}
+\onslide<5->{%
+  On a vu que $R * R^3 = \id$. \\
+  Donc $R^3$ est le mouvement inverse de $R$.
+}
+\end{frame}
+
+
+\section{Le problème}
+\begin{frame} \frametitle{Le problème}
+
+  \begin{minipage}[t]{0.43\linewidth}
+    \begin{block}{Première formulation}
+      Étant donné un cube $g$, le remettre en \og position de base\fg.
+    \end{block}
+  \end{minipage}
+  \hfill
+  \onslide<5->{%
+    \begin{minipage}[t]{0.47\linewidth}
+      \begin{block}{Formulation mathématique}
+        Étant donné  $g \in \G$, trouver des mouvements de base $X_1,
+        \dotsc, X_n$ tels que $g * X_1 * \cdots * X_n = \id$.
+      \end{block}
+    \end{minipage}
+  }
+
+  \vspace*{3ex}%
+  \textsc{Exemple:}
+  \begin{center}
+    \begin{tikzpicture}[x=1ex,y=1ex]
+      \input{expose-F1R2U3.tex}
+      \node[below] at (4.5, -0.5) {$g$};
+      \onslide<2->%
+      \begin{scope}[xshift=15ex]
+        \draw[<-,thick] (-0.5, 4.5) -- +(-2.5,0) node[pos=0.5,above]{$U$};
+        \input{expose-F1R2.tex}
+        \node[below] at (4.5, -0.5) {$g * U$};
+      \end{scope}
+      \onslide<3->%
+      \begin{scope}[xshift=30ex]
+        \draw[<-,thick] (-0.5, 4.5) -- +(-2.5,0) node[pos=0.5,above]{$R^2$};
+        \input{expose-F1.tex}
+        \node[below] at (4.5, -0.5) {$g * U * R^2$};
+      \end{scope}
+      \onslide<4->%
+      \begin{scope}[xshift=45ex]
+        \draw[<-,thick] (-0.5, 4.5) -- +(-2.5,0) node[pos=0.5,above]{$F^3$};
+        \input{expose-id.tex}
+        \node[below] at (4.5, -0.5) {$g * U * R^2 * F^3 = \id$};
+      \end{scope}
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\section{Idée de l'algorithme}
+\begin{frame} \frametitle{Idée de l'algorithme}
+  \begin{block}{}
+    Comment trouver la séquence de mouvements pour résoudre un cube~$g$ ?
+  \end{block}
+
+  Pas à pas :
+  \par\vspace*{-2ex}
+  \begin{center}
+    \begin{tikzpicture}[x=1ex,y=1ex]
+      \input{expose-F1R2U3.tex}
+      \node[right] at (7.5, 2) {$g$};
+      \draw[->] (4.5,-0.5) -- +(-18,-6) node[pos=0.5,above]{$F$};
+      \begin{scope}[xshift=-20ex,yshift=-16ex]
+        \input{expose-F1R2U3F1.tex}
+        \node[right] at (7.5, 2) {$g * F$};
+      \end{scope}
+      \draw[->] (4.5,-0.5) -- +(1.5,-6) node[pos=0.5,left]{$U$};
+      \begin{scope}[yshift=-16ex]
+        \fill[black] (-2,4.5) circle(0.7pt) (-4,4.5) circle(0.7pt)
+        (-6,4.5) circle(0.7pt);
+        \input{expose-F1R2.tex}
+        \node[right] at (7.5, 2) {$g * U$};
+      \end{scope}
+      \draw[->] (4.5,-0.5) -- +(21.5,-6) node[pos=0.5,above]{$D^3$};
+      \begin{scope}[xshift=20ex,yshift=-16ex]
+        \fill[black] (-2,4.5) circle(0.7pt) (-4,4.5) circle(0.7pt)
+        (-6,4.5) circle(0.7pt);
+        \input{expose-F1R2U3D3.tex}
+        \node[right] at (7.5, 2) {$g * D^3$};
+      \end{scope}
+      \node[right] at (-20,-18.5) {%
+        $\underbrace{\hspace*{52ex}}_{\text{18 configurations à examiner}}$
+      };
+    \end{tikzpicture}
+  \end{center}
+
+  \vspace*{-1ex}
+  Trouvé l'identité ?
+\end{frame}
+
+\begin{frame} \frametitle{Idée de l'algorithme (suite)}
+
+  \begin{block}{}
+    Trouvé l'identité ?
+    \begin{itemize}
+    \item<2-> \textit{Oui} : on a fini
+    \item<3-> \textit{Non} : on recommence !
+    \end{itemize}
+  \end{block}
+
+  \onslide<3->%
+  \begin{center}
+    \footnotesize
+    \begin{tikzpicture}[x=0.6ex,y=0.6ex]
+      \input{expose-F1R2U3.tex}
+      \node[right] at (7.5, 2) {$g$};
+      \draw[->] (4.5,-0.5) -- +(-18,-6) node[pos=0.5,above]{$F$};
+      \begin{scope}[xshift=-12ex,yshift=-10ex]
+        \input{expose-F1R2U3F1.tex}
+        \node[right] at (7.5, 1.5) {$g * F$};
+        %% Level 3 for that node
+        \draw[->] (4.5,-0.5) -- +(-7,-6);
+        \draw[->] (4.5,-0.5) -- +(1.5,-6);
+        \draw[->] (4.5,-0.5) -- +(7,-6);
+        \node[below] at (4.5,-6.5) {\hbox to 10ex{\dotfill}};
+      \end{scope}
+      \draw[->] (4.5,-0.5) -- +(1.5,-6) node[pos=0.5,left]{$U$};
+      \begin{scope}[yshift=-10ex]
+        \fill[black] (-2,4.5) circle(0.7pt) (-4,4.5) circle(0.7pt)
+        (-6,4.5) circle(0.7pt);
+        \input{expose-F1R2.tex}
+        \node[right] at (7.5, 1.5) {$g * U$};
+        %% Level 3 for that node
+        \draw[->] (4.5,-0.5) -- +(-7,-6);
+        \draw[->] (4.5,-0.5) -- +(1.5,-6);
+        \draw[->] (4.5,-0.5) -- +(7,-6);
+        \node[below] at (4.5,-6.5) {\hbox to 10ex{\dotfill}};
+      \end{scope}
+      \draw[->] (4.5,-0.5) -- +(21.5,-6) node[pos=0.5,above]{$D^3$};
+      \begin{scope}[xshift=12ex,yshift=-10ex]
+        \fill[black] (-2,4.5) circle(0.7pt) (-4,4.5) circle(0.7pt)
+        (-6,4.5) circle(0.7pt);
+        \input{expose-F1R2U3D3.tex}
+        \node[right] at (7.5, 1.5) {$g * D^3$};
+        %% Level 3 for that node
+        \draw[->] (4.5,-0.5) -- +(-7,-6);
+        \draw[->] (4.5,-0.5) -- +(1.5,-6);
+        \draw[->] (4.5,-0.5) -- +(7,-6);
+        \node[below] at (4.5,-6.5) {\hbox to 10ex{\dotfill}};
+      \end{scope}
+      \node[right] at (-25,-28) {%
+        $\underbrace{\hspace*{36ex}}_{18 \times 18 = 324 \text{ configurations à examiner}}$
+      };
+    \end{tikzpicture}
+  \end{center}
+
+  Trouvé l'identité ?
+\end{frame}
+
+
+\begin{frame} \frametitle{Idée de l'algorithme (suite)}
+
+  \begin{minipage}{0.5\linewidth}
+    \begin{math}
+      \begin{array}{l|l<{{}}@{}r}
+        \text{Niveau}& \multicolumn{2}{c}{\text{\# de configurations}}\\
+        \hline
+        \rule{0pt}{2.2ex}%
+        1& 18^1 =& 18\\
+        2& 18^2 =& 324\\
+        3& 18^3 =& 5.832\\
+        4& 18^4 =& 104.976\\
+        5& 18^5 =& 1.889.568\\
+        6& 18^6 =& 34.012.224\\
+        7& 18^7 =& 612.220.032\\
+        8& 18^8 =& 11.019.960.576
+      \end{array}
+    \end{math}
+
+    \vspace*{2ex}%
+    Explosion des cas !
+  \end{minipage}
+  \hfill
+  \onslide<2->%
+  \begin{minipage}{0.45\linewidth}
+    \begin{block}{Ingrédients}
+      \begin{itemize}
+      \item<2-> Sous problèmes
+      \item<3-> Multiplication rapide
+      \item<4-> Recherche «~informée~» \& \emph{pruning}
+      \item<5-> Réductions par symétries
+      \end{itemize}
+    \end{block}
+  \end{minipage}
+\end{frame}
+
+\section{Références}
+\begin{frame} \frametitle{Bibliographie}
+  \begin{thebibliography}{}
+
+  \bibitem{} The Perplexing Life of Erno Rubik, Discover magazine,
+    mars~1986.
+    \url{http://www.puzzlesolver.com/puzzle.php?id=29&page=15}
+
+
+  \bibitem{} Herbert Kociemba, Cube Explorer pages,
+    \url{http://kociemba.org/cube.htm}
+  \end{thebibliography}
+\end{frame}
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

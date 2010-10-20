@@ -1,0 +1,11 @@
+
+- Implement a feedback loop that make sure the motor has a certain
+  position within certain bounds.  (One can also give up after too
+  many tries, for example if the bounds are too tight.)
+
+- Measure the distance to the walls by taking the min of the distances
+  measured with a, say, 10 degree variation around the wanted direction.
+
+
+- Read the papers
+  http://www.case.edu/artsci/math/alexander/pubs.html#wmr

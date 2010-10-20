@@ -1,0 +1,73 @@
+make_os_type.cmo: 
+make_os_type.cmx: 
+robot.cmo: robot.cmi 
+robot.cmx: robot.cmi 
+run-follow-line.cmo: robot.cmi 
+run-follow-line.cmx: robot.cmx 
+run-light.cmo: robot.cmi 
+run-light.cmx: robot.cmx 
+run-look.cmo: robot.cmi 
+run-look.cmx: robot.cmx 
+run-push.cmo: robot.cmi 
+run-push.cmx: robot.cmx 
+run-turn.cmo: robot.cmi 
+run-turn.cmx: robot.cmx 
+robot.cmi: 
+labyrinth/display.cmo: labyrinth/display.cmi 
+labyrinth/display.cmx: labyrinth/display.cmi 
+labyrinth/labyrinth.cmo: labyrinth/labyrinth.cmi 
+labyrinth/labyrinth.cmx: labyrinth/labyrinth.cmi 
+labyrinth/run.cmo: 
+labyrinth/run.cmx: 
+labyrinth/solver.cmo: robot.cmi labyrinth/solver.cmi 
+labyrinth/solver.cmx: robot.cmx labyrinth/solver.cmi 
+labyrinth/test_labyrinth.cmo: 
+labyrinth/test_labyrinth.cmx: 
+labyrinth/display.cmi: 
+labyrinth/labyrinth.cmi: 
+labyrinth/solver.cmi: 
+rubik/a_star.cmo: 
+rubik/a_star.cmx: 
+rubik/calibration.cmo: rubik/calibration.cmi 
+rubik/calibration.cmx: rubik/calibration.cmi 
+rubik/display_base.cmo: rubik/display_base.cmi 
+rubik/display_base.cmx: rubik/display_base.cmi 
+rubik/display.cmo: rubik/display.cmi 
+rubik/display.cmx: rubik/display.cmi 
+rubik/expose.cmo: 
+rubik/expose.cmx: 
+rubik/ida.cmo: 
+rubik/ida.cmx: 
+rubik/init_color.cmo: rubik/init_color.cmi 
+rubik/init_color.cmx: rubik/init_color.cmi 
+rubik/movement.cmo: robot.cmi rubik/movement.cmi 
+rubik/movement.cmx: robot.cmx rubik/movement.cmi 
+rubik/ppm.cmo: rubik/ppm.cmi 
+rubik/ppm.cmx: rubik/ppm.cmi 
+rubik/priority_queue.cmo: rubik/priority_queue.cmi 
+rubik/priority_queue.cmx: rubik/priority_queue.cmi 
+rubik/run.cmo: 
+rubik/run.cmx: 
+rubik/solver.cmo: rubik/solver.cmi 
+rubik/solver.cmx: rubik/solver.cmi 
+rubik/test_movement.cmo: 
+rubik/test_movement.cmx: 
+rubik/test_ppm.cmo: 
+rubik/test_ppm.cmx: 
+rubik/test_snapshot.cmo: 
+rubik/test_snapshot.cmx: 
+rubik/test_solver.cmo: 
+rubik/test_solver.cmx: 
+rubik/test_translator.cmo: 
+rubik/test_translator.cmx: 
+rubik/calibration.cmi: 
+rubik/display_base.cmi: 
+rubik/display.cmi: 
+rubik/init_color.cmi: 
+rubik/movement.cmi: 
+rubik/ppm.cmi: 
+rubik/priority_queue.cmi: 
+rubik/rubik.cmi: 
+rubik/snapshot.cmi: 
+rubik/solver.cmi: 
+rubik/translator.cmi: 

@@ -1,0 +1,160 @@
+% Layout.
+\newcommand{\syntaxfor}[1]{\\&&\multicolumn{2}{r}{\textit{\textbf{#1}}}\\}
+\newcommand\hili[1]{\textcolor{red}{#1}}
+\newcommand\ud[1]{\textcolor{blue}{#1}}
+
+\newlength\codewidth
+\newenvironment{code}[1][\codewidth]{
+\begin{center}
+\Sbox
+\hspace{0.3cm}\minipage{#1}
+}{
+\endminipage
+\endSbox\fbox{\TheSbox}
+\end{center}
+}
+
+\newenvironment{hishow}{
+\hspace{1cm}\Large\itshape\color{blue}\linebreak
+}{}
+
+\newenvironment{parttitle}{
+\begin{center}
+\hspace{1cm}\Huge\itshape\color{blue}
+}{
+\end{center}
+}
+
+\newcommand{\theparttitle}[1]{
+\begin{center}
+\Huge\itshape\color{blue}#1
+\end{center}
+}
+
+\newenvironment{leftmarked}{
+\vspace{0.2cm}
+\vline\,\vline\hspace{0.4cm}
+\begin{minipage}{10cm}
+}{\noindent\end{minipage}
+\vspace{0.2cm}
+}
+
+\newcommand\setmyfooter[1]{
+\defbeamertemplate*{footline}{split slidenumber right}
+                   {
+                     \hspace{0.2cm}
+                     \textit{#1}
+                   }
+}
+
+\let\oldfootnote\footnote
+\renewcommand\footnote[1]{\oldfootnote{%
+\renewcommand\baselinestretch{1}%
+\large\scriptsize\ignorespaces#1}}
+
+\newcommand\icode[1]{\texttt{#1}}
+
+\newenvironment{proposition}
+{\noindent\underline{Proposition}~:\\
+\begin{quote}}
+{\end{quote}}
+
+\newcommand\english[1]{\textit{#1}}
+
+\newcommand\qmark{\centering\includegraphics[width=2cm]{images/interrogation}}
+
+% Code formatting.
+\definecolor{gray55}{gray}{0.45}
+\newcommand{\nl}[1]{{\small{\textcolor{gray55}{}}}}
+
+% Shortcuts
+\newcommand\Java{\textsc{Java}\xspace}
+\newcommand\ObjC{\textsc{Objective-C}\xspace}
+\newcommand\Javascript{\textsc{JavaScript}\xspace}
+\newcommand\Cplusplus{\textsc{C++}\xspace}
+\newcommand\C{\textsc{C}\xspace}
+\newcommand\Python{\textsc{Python}\xspace}
+\newcommand\Scala{\textsc{Scala}\xspace}
+\newcommand\Csharp{\textsc{C\#}\xspace}
+\newcommand\Ocaml{\textsc{O'Caml}\xspace}
+\newcommand\Nice{\textsc{Nice}\xspace}
+\newcommand\Ada{\textsc{Ada}\xspace}
+\newcommand\Eiffel{\textsc{Eiffel}\xspace}
+\newcommand\CLOS{\textsc{CLOS}\xspace}
+
+\newcommand\subtype[2]{#1\,\prec :\,#2}
+\newcommand\tyarrow[2]{#1\,\rightarrow\, #2}
+\newcommand\tyref[1]{\textrm{ref}\,#1}
+
+%% COMPILATION
+
+% Notations for compilation lectures.
+\newcommand{\kw}[1]{\texttt{\textbf{#1}}}
+
+\newcommand{\trad}[2]{\llparenthesis \; #2 \; \rrparenthesis_{#1}}
+
+\newcommand{\tok}[1]{\textbf{#1}}
+\newcommand{\toka}{\tok{a}}
+\newcommand{\tokb}{\tok{b}}
+\newcommand{\tokc}{\tok{c}}
+
+\newcommand{\nt}[1]{\textsl{#1}}
+\newcommand{\nta}{\nt{A}}
+\newcommand{\ntb}{\nt{B}}
+\newcommand{\ntc}{\nt{C}}
+
+\newcommand{\bnfcomment}[1]{\textit{#1}}
+
+\newcommand{\terminals}{T}
+\newcommand{\nonterminals}{N}
+
+\newcommand{\many}[1]{\overline{#1}}
+
+\newcommand{\ftv}[1]{FV (#1)}
+\newcommand\hamlet{\textrm{Ha\textit{ml}et}}
+
+\newcommand\hamvar{x}
+\newcommand\hamfvar{f}
+\newcommand\hamapp[2]{#1\;#2}
+\newcommand\hamfix[2]{\kw{fix}\; #1 .\, #2}
+\newcommand\hamproj[2]{\pi_{#1}{#2}}
+\newcommand\hamfun[2]{\kw{fun}\; #1 \Rightarrow #2}
+\newcommand\hamletrec[2]{\kw{letrec}\; #1 \;\kw{in}\; #2}
+\newcommand\hamLet[3]{\kw{let}\; #1 = #2 \;\kw{in}\; #3}
+\newcommand\hamdec[2]{#1 = #2}
+\newcommand\hamsubst[3]{#1 \{ #2 \mapsto #3\}}
+\newcommand\hamctx{\mathcal{C}}
+\newcommand\hamctxempty{[]}
+\newcommand\hamclo[2]{#1 [#2]}
+
+\newcommand\hamBigEval[2]{#1 \Downarrow #2}
+\newcommand\hamxBigEval[3]{#1 \vdash #2 \Downarrow #3}
+
+\newcommand\hamtyp{\tau}
+\newcommand\hamarrow[2]{#1 \rightarrow #2}
+
+\newcommand\hamenv{\Gamma}
+\newcommand\hamemptyenv{\bullet}
+\newcommand\hamconsenv[2]{#1; #2}
+\newcommand\hamhastype[3]{#1 \vdash #2 : #3}
+\newcommand\hamcheck[3]{#1 \vdash #2 \Downarrow #3}
+\newcommand\haminfer[3]{#1 \vdash #2 \Uparrow #3}
+
+\newcommand\eenv{\eta}
+\newcommand\emptyenv{\bullet}
+\newcommand\bindenv[3]{#1; (#2 \mapsto #3)}
+
+\newcommand\nenv{\Gamma}
+\newcommand\emptynenv{\bullet}
+\newcommand\bindnenv[2]{#1; #2}
+
+
+\newcommand\dbi[1]{\hat{#1}}
+
+\newcommand\sequent[2]{#1 \vdash #2}
+
+\newcommand\stack{\zeta}
+\newcommand\emptystack{\varepsilon}
+\newcommand\consstack[2]{#1 : #2}
+
+\newcommand\compile[1]{\mathcal{C}(#1)}

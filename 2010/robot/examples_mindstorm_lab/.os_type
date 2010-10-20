@@ -1,0 +1,3 @@
+OS_TYPE=UNIX
+D_OS=-DUNIX
+-include Makefile.UNIX

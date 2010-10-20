@@ -1,0 +1,20 @@
+#!/usr/bin/zsh
+
+cat > out.ml <<EOF
+  open Robot
+  let () = 
+EOF
+cat $1 \
+| sed s/'tant que'/while/g  \
+| sed s/faire/do/g  \
+| sed s/fin/done/g  \
+| sed s/sinon/else/g  \
+| sed s/'non '/'not '/g \
+| sed s/si/if/g  \
+| sed s/alors/then/g  \
+| sed s/fonction/let/g \
+| sed s/dans/in/g \
+| sed s/' ou '/' || '/g \
+>> out.ml
+
+ocamlbuild out.byte
