@@ -18,3 +18,5 @@ _build/
 *.cma
 *.cmxa
 *.com
+*.nav
+*.snm
