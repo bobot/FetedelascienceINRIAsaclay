@@ -183,7 +183,7 @@ let cherche_non_noir () =
   try
     if color () = `Black then begin
       for i = 1 to 8 do
-        let j = i * 10 + 60 in
+        let j = 10*(int_of_float (2. ** (float_of_int i))) + 60 in
 	turn_check_and_return j;
 	turn_check_and_return (-j)
       done;

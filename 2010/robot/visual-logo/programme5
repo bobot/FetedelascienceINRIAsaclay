@@ -1,10 +1,10 @@
-tant que 
+tant que
   couleur_est (blanc)
   ou couleur_est (noir)
 faire
-  tant que 
+  tant que
     couleur_est (blanc)
-  faire  
+  faire
     avance_un_peu ()
   fin;
   cherche_non_noir ()

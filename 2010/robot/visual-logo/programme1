@@ -1,5 +1,4 @@
 avance ();
-avance ();
 tourne (90);
 avance ();
 tourne (-90);

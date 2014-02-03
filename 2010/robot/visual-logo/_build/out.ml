@@ -1,12 +1,12 @@
   open Robot
   let () = 
-while 
+while
   couleur_est (blanc)
   || couleur_est (noir)
 do
-  while 
+  while
     couleur_est (blanc)
-  do  
+  do
     avance_un_peu ()
   done;
   cherche_non_noir ()
